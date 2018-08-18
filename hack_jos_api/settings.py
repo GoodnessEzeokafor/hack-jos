@@ -62,7 +62,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-AUTH_USER_MODEL = 'accounts.Users'
+AUTH_USER_MODEL = 'accounts.Participator'
 ROOT_URLCONF = 'hack_jos_api.urls'
 
 TEMPLATES = [

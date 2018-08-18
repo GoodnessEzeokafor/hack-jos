@@ -35,13 +35,13 @@ class UserManager(BaseUserManager):
         return user
 
 
-class Users(AbstractBaseUser):
+class Participator(AbstractBaseUser):
     full_name   = models.CharField(max_length=200, blank=False, null=False)
     username    = models.CharField(max_length=200,blank=False,null=False, unique=True)
     email       = models.EmailField(blank=False, null=False, unique=True)
     team        = models.CharField(max_length=200,blank=True, null=True, unique=True)
     startup     = models.CharField(max_length=200,blank=True, null=True, unique=True)
-    startup_overview = models.CharField(max_length=200, blank=True, null=True)
+    startup_overview = models.TextField(max_length=200, blank=True, null=True)
     is_active   = models.BooleanField(default=True)
     staff       = models.BooleanField(default=False)
     admin       = models.BooleanField(default=False)

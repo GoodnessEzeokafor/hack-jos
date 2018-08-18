@@ -4,7 +4,14 @@ from . import models
 
 class UserSerializers(serializers.ModelSerializer):
     class Meta:
-        model = models.Users
-        fields = ('full_name', 'username', 'email', 'team', 'startup', 'is_active', 'admin', 'staff')
+        model = models.Participator
+        fields = (
+        		'full_name', 
+        		'username', 
+        		'email', 
+        		'team', 
+        		'startup',
+        		'startup_overview',
+        	 	)
         
         
