@@ -35,13 +35,9 @@ class UserManager(BaseUserManager):
         return user
 
 
-class Participator(AbstractBaseUser):
-    full_name   = models.CharField(max_length=200, blank=False, null=False)
+class User(AbstractBaseUser):
     username    = models.CharField(max_length=200,blank=False,null=False, unique=True)
     email       = models.EmailField(blank=False, null=False, unique=True)
-    team        = models.CharField(max_length=200,blank=True, null=True, unique=True)
-    startup     = models.CharField(max_length=200,blank=True, null=True, unique=True)
-    startup_overview = models.TextField(max_length=200, blank=True, null=True)
     is_active   = models.BooleanField(default=True)
     staff       = models.BooleanField(default=False)
     admin       = models.BooleanField(default=False)
@@ -52,7 +48,7 @@ class Participator(AbstractBaseUser):
 
 
     def __str__(self):
-        return str(self.full_name)
+        return str(self.username)
     
     def has_perms(self, perm_list, obj=None):
         return True
@@ -80,3 +76,11 @@ class Participator(AbstractBaseUser):
     def is_admin(self):
         return self.admin
 
+
+
+class Participator(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    full_name   = models.CharField(max_length=200, blank=False, null=False)
+    team        = models.CharField(max_length=200,blank=True, null=True, unique=True)
+    startup     = models.CharField(max_length=200,blank=True, null=True, unique=True)
+    startup_overview = models.TextField(max_length=200, blank=True, null=True)

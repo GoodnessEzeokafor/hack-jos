@@ -10,12 +10,12 @@ from django.views.generic.edit import CreateView
 # Create your views here.
 
 
-class UserListView(generics.ListCreateAPIView):
-    queryset = models.Participator.objects.all()
-    serializer_class =  serializers.UserSerializers
+
+
+# class UserCreateAPIView(generics.ListCreateAPIView):
+#     queryset = models.Participator.objects.all()
+#     serializer_class =  serializers.UserSerializers
 
 
 
 
-class UserCreateView(generics.CreateAPIView):
-	pass
