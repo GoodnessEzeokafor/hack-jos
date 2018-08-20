@@ -47,10 +47,11 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_framework.authtoken',
     'rest_auth.registration',
+    'django.contrib.sites',
+    # Social auths
     'allauth',
-    'allauth.account',
-    'django.contrib.sites'
-]
+    'allauth.account'
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

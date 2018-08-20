@@ -15,6 +15,7 @@ class UserManager(BaseUserManager):
         
         user_obj = self.model(
             username=username,
+            password=password
         )
         user_obj.set_password(password)
         user_obj.staff = False # set staff to False
@@ -78,9 +79,19 @@ class User(AbstractBaseUser):
 
 
 
-class Participator(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Participant(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     full_name   = models.CharField(max_length=200, blank=False, null=False)
-    team        = models.CharField(max_length=200,blank=True, null=True, unique=True)
-    startup     = models.CharField(max_length=200,blank=True, null=True, unique=True)
-    startup_overview = models.TextField(max_length=200, blank=True, null=True)
+    email       = models.EmailField(unique=True)
+
+    def __str__(self):
+        return str(self.full_name)
+
+
+class Team(models.Model):
+    team_name = models.CharField(max_length=200, blank=False, null=False)
+    team_lead = models.CharField(max_length=200, blank=False, null=False)
+    team_members= models.ManyToManyField(Participant)
+
+    def __str__(self):
+        return str(self.team_name)

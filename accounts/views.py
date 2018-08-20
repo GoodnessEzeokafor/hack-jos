@@ -19,3 +19,23 @@ from django.views.generic.edit import CreateView
 
 
 
+class ParticipantList(generics.ListCreateAPIView):
+	queryset = models.Participant.objects.all()
+	serializer_class = serializers.ParticipantSerializer
+
+
+class ParticipantsDetails(generics.RetrieveUpdateDestroyAPIView):
+	queryset	 = models.Participant.objects.all()
+	serializer_class = serializers.ParticipantSerializer
+
+
+class TeamList(generics.ListCreateAPIView):
+	queryset = models.Team.objects.all()
+	serializer_class = serializers.TeamSerializer
+
+class TeamDetail(generics.RetrieveUpdateDestroyAPIView):
+	queryset = models.Team.objects.all()
+	serializer_class = serializers.TeamSerializer
+	
+
+# class Par
