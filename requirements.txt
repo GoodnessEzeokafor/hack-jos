@@ -5,6 +5,7 @@ Django==2.0.7
 django-allauth==0.36.0
 django-rest-auth==0.9.3
 djangorestframework==3.8.2
+gunicorn==19.9.0
 idna==2.7
 Markdown==2.6.11
 oauthlib==2.1.0

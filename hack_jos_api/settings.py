@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-
+import dj_database_url #Heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -25,7 +25,7 @@ SECRET_KEY = '-fed9&wd-y8n4ai6w*x0si%jz=#r!s3n9%3ol5$c$9znin=!48'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG= True
 
-ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'hack-jos.herokuapp.com']  # heroku
 
 
 # Application definition
@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic' # heroku, whitenoise python manage.py runserver --nostatic
     'django.contrib.staticfiles',
 
     # local app
@@ -61,6 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', # heroku
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -133,7 +135,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # heroku
 
 
 # SITE
@@ -142,4 +144,12 @@ SITE_ID = 1
 #EMAIL SETTING
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
- 
+
+
+db_from_env = dj_database_url.config() # heroku
+DATABASES['default'].update(db_from_env) # heroku
+db_from_env = dj_database_url.config(conn_max_age=600) # heroku
+
+
+# heroku run python manage.py makemigrations
+# heroku run python manage.py migrate
