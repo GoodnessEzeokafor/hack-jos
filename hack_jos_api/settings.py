@@ -9,8 +9,9 @@ https://docs.djangoproject.com/en/2.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
-import dj_database_url #Heroku
+import dj_database_url # heroku
 import os
+import django_heroku # heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -36,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'whitenoise.runserver_nostatic' # heroku, whitenoise python manage.py runserver --nostatic
+    'whitenoise.runserver_nostatic', # heroku, whitenoise python manage.py runserver --nostatic
     'django.contrib.staticfiles',
 
     # local app
@@ -136,6 +137,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # heroku
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 # SITE
@@ -146,10 +148,9 @@ SITE_ID = 1
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
-db_from_env = dj_database_url.config() # heroku
+db_from_env = dj_database_url.config(conn_max_age=500) # heroku
 DATABASES['default'].update(db_from_env) # heroku
-db_from_env = dj_database_url.config(conn_max_age=600) # heroku
 
-
+django_heroku.settings(locals()) # for django
 # heroku run python manage.py makemigrations
 # heroku run python manage.py migrate
